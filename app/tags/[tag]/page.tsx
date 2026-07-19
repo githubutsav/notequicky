@@ -1,21 +1,40 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
+import type { Metadata } from "next"
 import { Badge } from "@/components/ui/badge"
-import { formatDate, getAllNotes } from "@/lib/notes"
+import { formatDate, getAllTags, getNotesByTag } from "@/lib/notes"
 
-export default function HomePage() {
-  const notes = getAllNotes()
+export function generateStaticParams() {
+  return getAllTags().map(({ tag }) => ({ tag }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>
+}): Promise<Metadata> {
+  const { tag } = await params
+  return { title: `Tagged: ${decodeURIComponent(tag)}` }
+}
+
+export default async function TagPage({
+  params,
+}: {
+  params: Promise<{ tag: string }>
+}) {
+  const { tag: rawTag } = await params
+  const tag = decodeURIComponent(rawTag)
+  const notes = getNotesByTag(tag)
+  if (notes.length === 0) notFound()
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8 md:py-12">
       <div className="flex flex-col gap-2">
-        <h1 className="text-balance text-3xl font-semibold tracking-tight md:text-4xl">
-          Field Notes
+        <p className="text-muted-foreground text-sm">Tag</p>
+        <h1 className="flex items-center gap-3 text-3xl font-semibold tracking-tight">
+          {tag}
+          <Badge variant="secondary">{notes.length} notes</Badge>
         </h1>
-        <p className="text-muted-foreground text-pretty leading-relaxed">
-          A personal knowledge base. {notes.length} notes and counting — search
-          with <kbd className="bg-muted rounded border px-1.5 py-0.5 font-mono text-xs">⌘K</kbd>,
-          browse by tag, or scroll the list below.
-        </p>
       </div>
 
       <ul className="flex flex-col gap-3">
@@ -23,7 +42,7 @@ export default function HomePage() {
           <li key={note.slug}>
             <Link
               href={`/notes/${note.slug}`}
-              className="border-border/60 bg-card hover:border-primary/40 group flex flex-col gap-2 rounded-lg border p-4 transition-colors"
+              className="border-border/60 bg-card hover:border-primary/40 group flex flex-col gap-1.5 rounded-lg border p-4 transition-colors"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h2 className="group-hover:text-primary font-medium transition-colors">
@@ -42,15 +61,6 @@ export default function HomePage() {
                 <p className="text-muted-foreground text-pretty text-sm leading-relaxed">
                   {note.description}
                 </p>
-              )}
-              {note.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {note.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
               )}
             </Link>
           </li>
