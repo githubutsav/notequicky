@@ -97,7 +97,10 @@ function parseNote(fileName: string): Note {
   } else {
     try {
       const stats = fs.statSync(filePath);
-      dateStr = stats.birthtime.toISOString();
+      const fileTime = (stats.mtime && stats.mtime.getTime() > 0 && stats.mtime.getFullYear() > 1970)
+        ? stats.mtime
+        : ((stats.birthtime && stats.birthtime.getTime() > 0 && stats.birthtime.getFullYear() > 1970) ? stats.birthtime : new Date());
+      dateStr = fileTime.toISOString();
     } catch (e) {
       dateStr = new Date().toISOString();
     }
@@ -151,7 +154,9 @@ export function getNote(slug: string): Note | undefined {
 
 export function formatDate(iso: string): string {
   if (!iso) return ""
-  return new Date(iso).toLocaleDateString("en-US", {
+  const date = new Date(iso)
+  if (isNaN(date.getTime()) || date.getFullYear() <= 1970) return ""
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
