@@ -196,6 +196,14 @@ export function NoteEditor({ slug, originalContent, savedContent, defaultIsEditi
   }
 
   const handleSave = () => {
+    // If no changes were made to the note content, do not save or add to personal edits
+    const currentActiveContent = savedContent ?? originalContent
+    if (slug !== "new" && draftContent.trim() === currentActiveContent.trim()) {
+      setIsEditing(false)
+      toast.info("No changes made")
+      return
+    }
+
     startTransition(async () => {
       try {
         const resultId = await saveNoteEdit(slug, draftContent)
