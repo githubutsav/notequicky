@@ -9,6 +9,7 @@ export function ThemeToggle() {
 
   return (
     <Button
+      id="theme-toggle-trigger"
       variant="ghost"
       size="icon"
       aria-label="Toggle theme"

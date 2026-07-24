@@ -65,6 +65,7 @@ export function SearchDialog({ notes }: { notes: SearchNote[] }) {
   return (
     <>
       <Button
+        id="search-dialog-trigger"
         variant="outline"
         size="sm"
         className="text-muted-foreground gap-2 bg-transparent"

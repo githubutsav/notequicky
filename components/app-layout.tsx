@@ -51,7 +51,7 @@ export function AppLayout({
       />
       <div className="mx-auto flex w-full max-w-7xl">
         {sidebarOpen && (
-          <aside className="border-border/40 bg-background/50 sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r backdrop-blur md:block">
+          <aside id="nav-sidebar" className="border-border/40 bg-background/50 sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r backdrop-blur md:block">
             <div className="py-6 pr-6">
               <NoteNav notes={navNotes} />
             </div>

@@ -43,6 +43,8 @@ export const viewport: Viewport = {
   ],
 }
 
+import { ProductTour } from "@/components/product-tour"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,6 +68,7 @@ export default function RootLayout({
           <Providers>
             <HighlightModeProvider>
               <TextSelectionMenu />
+              <ProductTour />
               <AppLayout navNotes={navNotes} searchNotes={searchNotes}>
                 {children}
               </AppLayout>

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import { AuthModal } from "@/components/auth-modal"
+
 export function AuthButton() {
   const { data: session, status } = useSession()
 
@@ -42,9 +44,5 @@ export function AuthButton() {
     )
   }
 
-  return (
-    <Button onClick={() => signIn("google")} variant="outline" size="sm">
-      Log in
-    </Button>
-  )
+  return <AuthModal />
 }
