@@ -41,7 +41,7 @@ function FullscreenButton() {
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleFullscreen} aria-label="Toggle fullscreen">
+    <Button id="fullscreen-trigger" variant="ghost" size="icon" onClick={toggleFullscreen} aria-label="Toggle fullscreen">
       {isFullscreen ? <Minimize className="size-4" /> : <Maximize className="size-4" />}
     </Button>
   )
@@ -118,6 +118,7 @@ export function SiteHeader({
         )}
 
         <Link
+          id="header-logo"
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight ml-2 lg:ml-0"
         >

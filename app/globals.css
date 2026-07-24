@@ -240,3 +240,67 @@ body.highlight-mode-active-eraser [data-highlight-id]:hover {
   text-decoration-color: rgba(220, 38, 38, 0.8);
   text-decoration-thickness: 2px;
 }
+
+/* ── Driver.js Product Tour Custom Overrides ────────────────────────────── */
+.driver-popover {
+  background-color: var(--popover) !important;
+  color: var(--popover-foreground) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.6), 0 8px 12px -6px rgba(0, 0, 0, 0.4) !important;
+  font-family: var(--font-sans) !important;
+  padding: 18px !important;
+  max-width: 320px !important;
+}
+
+.driver-popover-title {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--primary) !important;
+  margin-bottom: 8px !important;
+}
+
+.driver-popover-description {
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  color: var(--muted-foreground) !important;
+}
+
+.driver-popover-footer {
+  margin-top: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.driver-popover-progress-text {
+  font-size: 11px !important;
+  font-family: var(--font-mono) !important;
+  color: var(--muted-foreground) !important;
+}
+
+.driver-popover-navigation-btns {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.driver-popover-btn {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  text-shadow: none !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+  transition: all 0.15s ease !important;
+}
+
+.driver-popover-next-btn, .driver-popover-done-btn {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+}
+

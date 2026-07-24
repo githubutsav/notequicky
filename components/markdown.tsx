@@ -91,7 +91,7 @@ const PureMarkdown = React.memo(function PureMarkdown({
     const idx = blockIdxRef.current++
     return React.createElement(
       Tag,
-      { "data-block-index": idx, ...extraProps },
+      { "data-block-index": idx, suppressHydrationWarning: true, ...extraProps },
       processSyntaxHighlight(children)
     )
   }
@@ -187,7 +187,7 @@ const PureMarkdown = React.memo(function PureMarkdown({
             )
           }
 
-          return <blockquote data-block-index={idx}>{processed}</blockquote>
+          return <blockquote data-block-index={idx} suppressHydrationWarning>{processed}</blockquote>
         },
       }}
     >
@@ -304,7 +304,7 @@ export function Markdown({
   // the old DOM tree when content changes. This prevents React from crashing 
   // when trying to reconcile a DOM that web-highlighter has mutated!
   return (
-    <div key={content} className="note-prose" ref={proseRef}>
+    <div key={content} className="note-prose" ref={proseRef} suppressHydrationWarning>
       <PureMarkdown content={content} />
     </div>
   )
