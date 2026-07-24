@@ -164,7 +164,14 @@ export function NoteEditor({ slug, originalContent, savedContent, defaultIsEditi
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(initialHighlights)])
 
-  if (!session?.user) return null
+  // If not logged in, render note content directly for viewing
+  if (!session?.user) {
+    return (
+      <div className="flex flex-col gap-1">
+        <Markdown content={content} highlights={localHighlights} noteSlug={slug} />
+      </div>
+    )
+  }
 
   const handleEdit = () => {
     setDraftContent(content)
