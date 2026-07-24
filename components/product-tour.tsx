@@ -15,18 +15,18 @@ export function ProductTour() {
       animate: true,
       allowClose: true,
       overlayColor: "#000000",
-      overlayOpacity: 0.75,
-      stagePadding: 6,
-      stageRadius: 8,
+      overlayOpacity: 0.82,
+      stagePadding: 8,
+      stageRadius: 10,
       nextBtnText: "NEXT →",
       prevBtnText: "← PREVIOUS",
-      doneBtnText: "GET STARTED ✓",
+      doneBtnText: "FINISH TOUR ✓",
       steps: [
         {
           element: "#nav-sidebar",
           popover: {
-            title: "SIDEBAR NAVIGATION",
-            description: "Browse all topics, search categories, study guides, and video notes seamlessly from the sidebar.",
+            title: "1. SIDEBAR NAVIGATION",
+            description: "Browse all topics,study guides, and video notes seamlessly from the sidebar.",
             side: "right",
             align: "start",
           },
@@ -34,7 +34,7 @@ export function ProductTour() {
         {
           element: "#search-dialog-trigger",
           popover: {
-            title: "COMMAND SEARCH",
+            title: "2. FAST COMMAND SEARCH ",
             description: "Press Cmd + S (or click Search) to instantly find terms, code snippets, and topics across all notes.",
             side: "bottom",
             align: "center",
@@ -43,19 +43,40 @@ export function ProductTour() {
         {
           element: "#theme-toggle-trigger",
           popover: {
-            title: "THEME PREFERENCE",
-            description: "Toggle between high-contrast dark mode and clean light mode anytime.",
+            title: "3. DARK & LIGHT THEME",
+            description: "Toggle between high-contrast dark mode and clean light mode anytime for comfortable reading.",
             side: "bottom",
             align: "end",
           },
         },
         {
-          element: "#auth-modal-trigger",
           popover: {
-            title: "AUTHENTICATION & PROFILE",
-            description: "Sign in with Google or GitHub to create personal notes, save highlights, and sync favorites.",
-            side: "bottom",
-            align: "end",
+            title: "4. UNLOCK PERSONAL FEATURES 🔓",
+            description: `
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 4px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                  <div style="background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <div style="font-size: 16px;">✍️</div>
+                    <div style="font-size: 11px; font-weight: 600; color: var(--foreground); margin-top: 2px;">Create Notes</div>
+                  </div>
+                  <div style="background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <div style="font-size: 16px;">🖍️</div>
+                    <div style="font-size: 11px; font-weight: 600; color: var(--foreground); margin-top: 2px;">Text Highlights</div>
+                  </div>
+                  <div style="background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <div style="font-size: 16px;">⭐</div>
+                    <div style="font-size: 11px; font-weight: 600; color: var(--foreground); margin-top: 2px;">Favorites Sync</div>
+                  </div>
+                  <div style="background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <div style="font-size: 16px;">☁️</div>
+                    <div style="font-size: 11px; font-weight: 600; color: var(--foreground); margin-top: 2px;">Cloud Storage</div>
+                  </div>
+                </div>
+                <p style="margin: 4px 0 0 0; font-size: 12px; line-height: 1.5; color: var(--muted-foreground); text-align: center;">
+                  Sign in anytime with Google or GitHub, or continue exploring as guest!
+                </p>
+              </div>
+            `,
           },
         },
       ],
