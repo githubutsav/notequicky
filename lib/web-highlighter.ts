@@ -106,6 +106,10 @@ export function restoreHighlights(
   }
 }
 
+function hasVisibleHighlightText(el: HTMLElement) {
+  return Boolean(el.textContent?.replace(/\u00a0/g, " ").trim())
+}
+
 /**
  * Apply a color CSS class to all DOM nodes belonging to a highlight ID.
  */
@@ -121,7 +125,14 @@ export function applyColorClass(
     .forEach((el) => {
       // Remove any other color classes first
       Object.values(HL_COLOR_CLASSES).forEach((c) => el.classList.remove(c))
-      el.classList.add(cls)
       el.dataset.highlightRecordId = recordId
+
+      if (!hasVisibleHighlightText(el)) {
+        el.dataset.highlightHidden = "true"
+        return
+      }
+
+      delete el.dataset.highlightHidden
+      el.classList.add(cls)
     })
 }

@@ -49,40 +49,40 @@
 }
 
 :root {
-  /* Minimalist soft purple/lavender theme for light mode */
-  --background: hsl(270, 40%, 96%); /* More visible soft lavender background */
-  --foreground: hsl(250, 22%, 25%); /* Dark muted purple-gray for text */
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(250, 22%, 25%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(250, 22%, 25%);
-  --primary: hsl(260, 31%, 64%); /* Mid-dark purple from palette */
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(280, 30%, 92%); /* Soft pink-purple */
-  --secondary-foreground: hsl(250, 22%, 30%);
-  --muted: hsl(280, 20%, 92%);
-  --muted-foreground: hsl(250, 15%, 55%);
-  --accent: hsl(280, 30%, 92%);
-  --accent-foreground: hsl(250, 22%, 30%);
+  /* Soft reading theme for light mode */
+  --background: oklch(0.955 0.008 78);
+  --foreground: oklch(0.27 0.018 72);
+  --card: oklch(0.985 0.006 78);
+  --card-foreground: oklch(0.27 0.018 72);
+  --popover: oklch(0.985 0.006 78);
+  --popover-foreground: oklch(0.27 0.018 72);
+  --primary: oklch(0.58 0.1 282);
+  --primary-foreground: oklch(0.98 0.004 78);
+  --secondary: oklch(0.91 0.012 78);
+  --secondary-foreground: oklch(0.31 0.016 72);
+  --muted: oklch(0.91 0.01 78);
+  --muted-foreground: oklch(0.5 0.012 72);
+  --accent: oklch(0.9 0.018 282);
+  --accent-foreground: oklch(0.31 0.03 282);
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(270, 20%, 88%);
-  --input: hsl(270, 20%, 88%);
-  --ring: hsl(260, 31%, 64%);
+  --border: oklch(0.84 0.01 78);
+  --input: oklch(0.84 0.01 78);
+  --ring: oklch(0.58 0.1 282);
   --radius: 0.5rem;
-  --chart-1: hsl(260, 31%, 64%);
-  --chart-2: hsl(280, 30%, 70%);
-  --chart-3: hsl(300, 30%, 75%);
-  --chart-4: hsl(326, 45%, 81%);
-  --chart-5: hsl(250, 22%, 50%);
-  --sidebar: hsl(270, 30%, 94%); /* Distinct lavender for sidebar */
-  --sidebar-foreground: hsl(250, 22%, 25%);
-  --sidebar-primary: hsl(260, 31%, 64%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(280, 30%, 90%);
-  --sidebar-accent-foreground: hsl(250, 22%, 30%);
-  --sidebar-border: hsl(270, 20%, 86%);
-  --sidebar-ring: hsl(260, 31%, 64%);
+  --chart-1: oklch(0.58 0.1 282);
+  --chart-2: oklch(0.6 0.08 165);
+  --chart-3: oklch(0.62 0.1 35);
+  --chart-4: oklch(0.62 0.09 230);
+  --chart-5: oklch(0.55 0.07 72);
+  --sidebar: oklch(0.94 0.008 78);
+  --sidebar-foreground: oklch(0.27 0.018 72);
+  --sidebar-primary: oklch(0.58 0.1 282);
+  --sidebar-primary-foreground: oklch(0.98 0.004 78);
+  --sidebar-accent: oklch(0.9 0.018 282);
+  --sidebar-accent-foreground: oklch(0.31 0.03 282);
+  --sidebar-border: oklch(0.84 0.01 78);
+  --sidebar-ring: oklch(0.58 0.1 282);
 }
 
 .dark {
@@ -199,36 +199,51 @@
 
 /* ── web-highlighter injected spans ───────────────────────────────── */
 [data-highlight-id] {
-  border-radius: 1px;
-  padding: 0;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.92);
+  padding: 0.02em 0.1em 0.06em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.22);
   transition: opacity 0.15s ease, filter 0.15s ease;
 }
 
 /* Color variants */
 [data-highlight-id].hl-yellow {
-  background: rgba(234, 179, 8, 0.35);
+  background: linear-gradient(135deg, rgba(180, 136, 0, 0.88), rgba(112, 91, 0, 0.78));
 }
 [data-highlight-id].hl-green {
-  background: rgba(34, 197, 94, 0.35);
+  background: linear-gradient(135deg, rgba(32, 113, 65, 0.86), rgba(18, 79, 45, 0.78));
 }
 [data-highlight-id].hl-blue {
-  background: rgba(59, 130, 246, 0.35);
+  background: linear-gradient(135deg, rgba(41, 87, 166, 0.9), rgba(31, 62, 139, 0.82));
 }
 [data-highlight-id].hl-pink {
-  background: rgba(236, 72, 153, 0.35);
+  background: linear-gradient(135deg, rgba(162, 55, 113, 0.88), rgba(110, 39, 87, 0.8));
 }
 [data-highlight-id].hl-purple {
-  background: rgba(168, 85, 247, 0.35);
+  background: linear-gradient(135deg, rgba(111, 70, 168, 0.88), rgba(74, 49, 137, 0.8));
 }
 
-/* Dark mode */
-.dark [data-highlight-id].hl-yellow { background: rgba(234, 179, 8, 0.28); }
-.dark [data-highlight-id].hl-green  { background: rgba(34, 197, 94, 0.28); }
-.dark [data-highlight-id].hl-blue   { background: rgba(59, 130, 246, 0.28); }
-.dark [data-highlight-id].hl-pink   { background: rgba(236, 72, 153, 0.28); }
-.dark [data-highlight-id].hl-purple { background: rgba(168, 85, 247, 0.28); }
+[data-highlight-hidden="true"] {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+  text-shadow: none !important;
+}
+
+/* Repeated or overlapping selections can create nested wrappers. Keep them
+   clickable, but let the outer wrapper paint the highlight once. */
+[data-highlight-id] [data-highlight-id] {
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  color: inherit;
+  padding: 0;
+  text-shadow: none;
+}
 
 /* Eraser mode: show delete cursor + strikethrough on hover */
 body.highlight-mode-active-eraser [data-highlight-id] {
@@ -303,4 +318,3 @@ body.highlight-mode-active-eraser [data-highlight-id]:hover {
   color: var(--primary-foreground) !important;
   border: none !important;
 }
-

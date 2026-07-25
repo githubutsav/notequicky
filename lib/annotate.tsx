@@ -4,11 +4,11 @@ import type { ReactNode } from "react"
 export const BLOCK_SELECTORS = "p, h1, h2, h3, h4, h5, h6, li, blockquote, td, th"
 
 export const COLOR_MAP: Record<string, string> = {
-  yellow: "bg-yellow-400/40 text-yellow-900 dark:bg-yellow-900/50 dark:text-yellow-200",
-  green:  "bg-green-400/40 text-green-900 dark:bg-green-900/50 dark:text-green-200",
-  blue:   "bg-blue-400/40 text-blue-900 dark:bg-blue-900/50 dark:text-blue-200",
-  pink:   "bg-pink-400/40 text-pink-900 dark:bg-pink-900/50 dark:text-pink-200",
-  purple: "bg-purple-400/40 text-purple-900 dark:bg-purple-900/50 dark:text-purple-200",
+  yellow: "hl-yellow",
+  green: "hl-green",
+  blue: "hl-blue",
+  pink: "hl-pink",
+  purple: "hl-purple",
 }
 
 export type BlockHighlight = {
@@ -124,4 +124,3 @@ function annotateText(
 
   return parts
 }
-

@@ -2,14 +2,13 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, NotebookPen, Maximize, Minimize, Star, Highlighter, Plus, Eraser, ChevronDown } from "lucide-react"
+import { Menu, NotebookPen, Maximize, Minimize, Star, Highlighter, Eraser, ChevronDown } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { useHighlightMode } from "@/components/highlight-mode-provider"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -66,10 +65,34 @@ export function SiteHeader({
     { id: "blue", class: "bg-blue-500", text: "text-blue-500" },
     { id: "pink", class: "bg-pink-500", text: "text-pink-500" },
     { id: "purple", class: "bg-purple-500", text: "text-purple-500" },
-    { id: "eraser", class: "bg-muted border-2 border-dashed border-muted-foreground/50", text: "text-muted-foreground" },
   ] as const
 
-  const activeColorObj = colors.find((c) => c.id === highlightColor) || colors[0]
+  const [paintColor, setPaintColor] = useState<(typeof colors)[number]["id"]>(
+    highlightColor === "eraser" ? "yellow" : highlightColor as (typeof colors)[number]["id"]
+  )
+  const activeColorObj = colors.find((c) => c.id === paintColor) || colors[0]
+  const highlighterActive = isHighlightMode && highlightColor !== "eraser"
+  const eraserActive = isHighlightMode && highlightColor === "eraser"
+
+  const togglePaintTool = () => {
+    if (highlighterActive) {
+      toggleHighlightMode()
+      return
+    }
+
+    setHighlightColor(paintColor)
+    if (!isHighlightMode) toggleHighlightMode()
+  }
+
+  const toggleEraserTool = () => {
+    if (eraserActive) {
+      toggleHighlightMode()
+      return
+    }
+
+    setHighlightColor("eraser")
+    if (!isHighlightMode) toggleHighlightMode()
+  }
 
   return (
     <header className="border-border/60 bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
@@ -129,29 +152,25 @@ export function SiteHeader({
         <div className="ml-auto flex items-center gap-2">
           {session?.user && (
             <div className="flex items-center gap-1 mr-1">
-              <Button variant="ghost" size="icon" render={<Link href="/notes/new?edit=true" />} title="Create New Note" nativeButton={false}>
-                <Plus className="size-5" />
-              </Button>
-              <div className="flex items-center">
+              <div className="flex items-center gap-1">
                 <Button
-                  variant={isHighlightMode ? "default" : "ghost"}
+                  variant={highlighterActive ? "default" : "ghost"}
                   size="icon"
-                  onClick={toggleHighlightMode}
-                  title="Toggle Highlight Mode"
-                  className={`rounded-r-none ${isHighlightMode ? `${activeColorObj.class} hover:${activeColorObj.class}/90 ${activeColorObj.id !== 'eraser' ? 'text-white' : 'text-muted-foreground'}` : ""}`}
+                  onClick={togglePaintTool}
+                  title="Highlight text"
+                  aria-label="Highlight text"
+                  aria-pressed={highlighterActive}
+                  className={highlighterActive ? `${activeColorObj.class} text-white hover:opacity-90` : ""}
                 >
-                  {activeColorObj.id === "eraser" ? (
-                    <Eraser className={`size-4 ${isHighlightMode ? "" : activeColorObj.text}`} />
-                  ) : (
-                    <Highlighter className={`size-4 ${isHighlightMode ? "text-white" : activeColorObj.text}`} />
-                  )}
+                  <Highlighter className={`size-4 ${highlighterActive ? "text-white" : activeColorObj.text}`} />
                 </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger render={
                     <Button
-                      variant={isHighlightMode ? "default" : "ghost"}
+                      variant={highlighterActive ? "default" : "ghost"}
                       size="icon"
-                      className={`w-5 rounded-l-none border-l ${isHighlightMode ? `${activeColorObj.class} border-white/20 hover:${activeColorObj.class}/90 ${activeColorObj.id !== 'eraser' ? 'text-white' : 'text-muted-foreground'}` : "border-border/50"}`}
+                      aria-label="Choose highlight color"
+                      className={`w-5 border-l ${highlighterActive ? `${activeColorObj.class} border-white/20 text-white hover:opacity-90` : "border-border/50"}`}
                     />
                   }>
                     <ChevronDown className="size-3" />
@@ -161,16 +180,27 @@ export function SiteHeader({
                     <button
                       key={c.id}
                       onClick={() => {
+                        setPaintColor(c.id)
                         setHighlightColor(c.id)
                         if (!isHighlightMode) toggleHighlightMode()
                       }}
                       className={`shrink-0 flex items-center justify-center size-6 rounded-full ${c.class} transition-transform hover:scale-110 ${highlightColor === c.id ? "ring-2 ring-foreground ring-offset-2" : ""}`}
                     >
-                      {c.id === "eraser" && <Eraser className="size-3.5 opacity-70" />}
                     </button>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+                <Button
+                  variant={eraserActive ? "default" : "ghost"}
+                  size="icon"
+                  onClick={toggleEraserTool}
+                  title="Erase highlights"
+                  aria-label="Erase highlights"
+                  aria-pressed={eraserActive}
+                  className={eraserActive ? "bg-muted text-foreground ring-1 ring-border hover:bg-muted/80" : "text-muted-foreground hover:text-foreground"}
+                >
+                  <Eraser className="size-4" />
+                </Button>
               </div>
               <Button variant="ghost" size="icon" render={<Link href="/my/favorites" />} title="My Favorites" nativeButton={false}>
                 <Star className="size-4 text-rose-500" />

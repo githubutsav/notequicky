@@ -43,6 +43,7 @@ export default async function FavoritesPage() {
           {favorites.map((f) => (
             <div
               key={f.id}
+              data-delete-item
               className="group relative rounded-xl border border-border/50 bg-card/50 p-5 transition-all hover:border-rose-500/30 hover:bg-rose-500/5"
             >
               <div className="mb-3 flex items-start justify-between gap-3">

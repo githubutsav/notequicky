@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronRight, ChevronDown, Folder, Highlighter, Star, FileText } from "lucide-react"
+import { ChevronRight, ChevronDown, Folder, Highlighter, Star, FileText, FilePlus2 } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { cn } from "@/lib/utils"
 import { getOrder } from "@/lib/order"
@@ -209,26 +209,42 @@ export function NoteNav({
       {/* Special folders — only shown when logged in */}
       {session?.user && (
         <div className="flex flex-col gap-1">
-          <p className="text-muted-foreground px-2 text-xs font-medium tracking-wide uppercase">
-            My Workspace
-          </p>
-          <div className="flex flex-col mt-1">
-            {specialFolders.map(({ href, label, icon: Icon }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={onNavigate}
-                className={cn(
-                  "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
-                  pathname === href
-                    ? "bg-accent text-accent-foreground font-medium"
-                    : "text-foreground/80 hover:bg-accent/60 hover:text-accent-foreground"
-                )}
-              >
-                <Icon className="h-3.5 w-3.5 shrink-0 opacity-70" />
-                <span>{label}</span>
-              </Link>
-            ))}
+          <Link
+            href="/notes/new?edit=true"
+            onClick={onNavigate}
+            className={cn(
+              "flex items-center gap-2 rounded-lg border px-2.5 py-2 text-sm font-medium transition-colors",
+              pathname === "/notes/new"
+                ? "border-primary/35 bg-primary/15 text-primary"
+                : "border-primary/20 bg-primary/10 text-primary hover:border-primary/35 hover:bg-primary/15"
+            )}
+          >
+            <FilePlus2 className="h-4 w-4 shrink-0" />
+            <span>Create new note</span>
+          </Link>
+
+          <div className="mt-5 flex flex-col gap-1">
+            <p className="text-muted-foreground px-2 text-xs font-medium tracking-wide uppercase">
+              My Workspace
+            </p>
+            <div className="mt-1 flex flex-col">
+              {specialFolders.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={onNavigate}
+                  className={cn(
+                    "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
+                    pathname === href
+                      ? "bg-accent text-accent-foreground font-medium"
+                      : "text-foreground/80 hover:bg-accent/60 hover:text-accent-foreground"
+                  )}
+                >
+                  <Icon className="h-3.5 w-3.5 shrink-0 opacity-70" />
+                  <span>{label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}

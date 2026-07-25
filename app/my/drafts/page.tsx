@@ -60,6 +60,7 @@ export default async function DraftsPage() {
                 {dbNotes.map((note) => (
                   <div
                     key={note.id}
+                    data-delete-item
                     className="relative rounded-xl border border-border/50 bg-card/50 p-5 transition-all hover:border-primary/30 hover:bg-accent/20 flex flex-col"
                   >
                     <div className="absolute top-4 right-4 z-10">
@@ -90,6 +91,7 @@ export default async function DraftsPage() {
                 {noteEdits.map((edit) => (
                   <div
                     key={edit.id}
+                    data-delete-item
                     className="relative flex items-center justify-between rounded-xl border border-border/50 bg-card/50 p-5 transition-all hover:border-primary/30 hover:bg-accent/20"
                   >
                     <Link href={`/notes/${edit.slug}`} className="flex-1 pr-4">

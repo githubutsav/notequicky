@@ -195,8 +195,9 @@ async function saveFromRange(
     ;(prose as any).__wh_instance = hl
   }
 
-  const mergedHighlights = findAdjacentHighlights(prose, range, color, getHighlightRecord)
-  const selectedOffsets = rangeTextOffsets(prose, range)
+  const trimmedRange = trimRangeWhitespace(prose, range)
+  const mergedHighlights = findAdjacentHighlights(prose, trimmedRange, color, getHighlightRecord)
+  const selectedOffsets = rangeTextOffsets(prose, trimmedRange)
 
   // Recreate a continuous highlight from clean text, so adjacent selections
   // do not retain separate wrappers or a visual seam between them.
@@ -210,7 +211,7 @@ async function saveFromRange(
         Math.min(selectedOffsets.start, ...mergedHighlights.map((item) => item.start)),
         Math.max(selectedOffsets.end, ...mergedHighlights.map((item) => item.end))
       )
-    : range
+    : trimmedRange
 
   // fromRange returns one serializable source for the selected range.
   const source = hl.fromRange(rangeToHighlight)
@@ -330,6 +331,22 @@ function rangeFromTextOffsets(root: HTMLElement, start: number, end: number) {
   range.setStart(startNode, startOffset)
   range.setEnd(endNode, endOffset)
   return range
+}
+
+function trimRangeWhitespace(root: HTMLElement, range: Range) {
+  const text = range.toString()
+  const leading = text.match(/^\s*/)?.[0].length ?? 0
+  const trailing = text.match(/\s*$/)?.[0].length ?? 0
+
+  if (!leading && !trailing) return range
+
+  const offsets = rangeTextOffsets(root, range)
+  const start = offsets.start + leading
+  const end = offsets.end - trailing
+
+  if (start >= end) return range
+
+  return rangeFromTextOffsets(root, start, end)
 }
 
 function findAdjacentHighlights(
